@@ -1,0 +1,48 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath files('libs/gradle-witness.jar')
+    }
+}
+
+plugins {
+  id 'java'
+  id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
+
+apply plugin: 'witness'
+
+
+repositories {
+    jcenter()
+}
+
+sourceSets {
+  main {
+    resources {
+        srcDirs = ["src/main/java"]
+        includes = ["**/*.fxml","**/*.css"]
+    }
+  }
+}
+
+jar {
+  manifest {
+    attributes(
+      'Main-Class': 'awesomevibes.authenticator.desktop.Main',
+    )
+  }
+}
+
+
+dependencies {
+    compile 'org.jboss.aerogear:aerogear-otp-java:1.0.0'
+}
+
+dependencyVerification {
+    verify = [
+        'org.jboss.aerogear:aerogear-otp-java:161b18950d103fe0325b2dc897f0c121f663cac94b5742cd62b97a9b36f15b63',
+    ]
+}
